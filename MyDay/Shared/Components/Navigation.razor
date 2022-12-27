@@ -1,0 +1,28 @@
+﻿@inject NavigationManager _navigationManager;
+
+<div class="side-navigation-container">
+    <ul>
+        <li class="d-flex side-navigation-item" @onclick="@(() => this.Redirect("/"))">
+            <div>
+                <i class="bi bi-house"></i>
+                <span>Home</span>
+            </div>
+        </li>
+        <li class="d-flex side-navigation-item" @onclick="@(() => this.Redirect("/todo"))">
+            <div>
+                <i class="bi bi-list-task"></i>
+                <span>Todo</span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+@code {
+    private void Redirect(string url)
+    {
+        if (string.IsNullOrEmpty(url))
+            this._navigationManager.NavigateTo("/");
+
+        this._navigationManager.NavigateTo(url);
+    }
+}

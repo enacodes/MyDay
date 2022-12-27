@@ -1,0 +1,21 @@
+﻿.side-navigation-container {
+    height: inherit;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.side-navigation-container ul {
+    padding: 0;
+}
+
+.side-navigation-item {
+    list-style: none;
+    cursor: pointer;
+    height: 2.5rem;
+    padding-left: 1rem;
+    padding-top: .5rem;
+}
+
+.side-navigation-item:hover {
+    background-color: var(--bs-gray-800);
+}
