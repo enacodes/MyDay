@@ -16,6 +16,4 @@
 
 .content-area {
     grid-area: 1 / 2 / 2 / 6;
-    padding: .5rem;
-    padding-left: 1rem;
 }
