@@ -38,7 +38,10 @@
     margin-top: 1rem;
 }
 
+.todo-item:hover {
+    background-color: var(--bs-gray-600);
+}
+
 .add-todo-item {
     padding-left: .5rem;
-    padding-top: .2rem;
 }
