@@ -46,6 +46,10 @@
 .add-todo-item[b-odokns6mxw] {
     padding-left: .5rem;
 }
+
+.show-pointer[b-odokns6mxw] {
+    cursor: pointer;
+}
 /* /Shared/MainLayout.razor.rz.scp.css */
 .main-container[b-rszg31j7s4] {
     display: grid;
