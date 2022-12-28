@@ -2,10 +2,11 @@
 
 namespace MyDay.Pages.Todo
 {
-    public class TodoItem
+    public class TaskItem
     {
+        public int BucketId { get; set; }
         public string Name { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
-        public TodoStatus Status { get; set; }
+        public TaskItemStatus Status { get; set; }
     }
 }

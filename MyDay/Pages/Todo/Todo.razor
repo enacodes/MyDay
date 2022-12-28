@@ -3,13 +3,13 @@
 @using MyDay.Pages.Todo.Model;
 
 <div class="toolbar d-flex">
-    <div class="toolbar-action" @onclick="@(() => this.AddNewBucket())">
+    <div class="toolbar-action show-pointer" data-bs-toggle="modal" data-bs-target="#newBucketModal">
         <i class="bi bi-plus"></i>
         <span>Add new bucket</span>
     </div>
 </div>
 
-@if (this.Buckets is null || this.Buckets.Any() is false)
+@if (this._buckets is null || this._buckets.Any() is false)
 {
     <div class="d-flex align-items-center justify-content-center">
         <div class="text-secondary text-opacity-50">
@@ -20,24 +20,32 @@
 else
 {
     <div class="todo-container d-flex justify-content-between">
-        @foreach (var bucket in this.Buckets)
+        @foreach (var bucket in this._buckets)
         {
             <div class="todo-bucket">
-                <div class="todo-bucket-name d-flex justify-content-start">
+                <div class="todo-bucket-name d-flex justify-content-between">
                     <strong>@bucket.Name</strong>
+                    @if (bucket.AllowDelete)
+                    {
+                        <div class="show-pointer" @onclick="@(() => this._selectedBucket = bucket)"data-bs-toggle="modal" data-bs-target="#deleteBucketModal">
+                            <i class="bi bi-trash"></i>
+                        </div>
+                    }
                 </div>
 
                 <div class="todo-bucket-items">
                     <div class="todo-item" @onclick="@(() => this.AddNewTask(bucket))">
-                        <div class="add-todo-item d-inline-flex">
+                        <div class="add-todo-item d-inline-flex fw-semibold">
                             <i class="bi bi-plus"></i>
                             <span>Add task</span>
                         </div>
                     </div>
-                    @foreach (var item in bucket.TodoItems)
+                    @foreach (var item in bucket.TaskItems)
                     {
-                        <div class="todo-item flex-column" @onclick="@(() => this.ShowTaskDetails(item))">
-                            <div class="p-2">@item.Name</div>
+                        <div class="todo-item flex-column" @onclick="@(() => this._selectedTask = item)" data-bs-toggle="modal" data-bs-target="#taskDetailsModal">
+                            <div class="p-2 d-flex fw-semibold">
+                                @item.Name
+                            </div>
                             <div class="p-2 text-truncate">
                                 @item.Description
                             </div>
@@ -49,43 +57,134 @@ else
     </div>
 }
 
+<div class="modal fase" id="deleteBucketModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Delete bucket</h1>
+            </div>
+
+            <div class="modal-body">
+                <p>Are you really sure that you want to delete <strong>@this._selectedBucket?.Name</strong> bucket?</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" @onclick="@(() => this._buckets?.Remove(this._selectedBucket))" data-bs-dismiss="modal">Delete</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fase" id="newBucketModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Add new bucket</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatingInput" placeholder="Bucket name" @bind="@this._bucketName">
+                    <label for="floatingInput">Bucket name</label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" @onclick="@(() => this.AddNewBucket())" data-bs-dismiss="modal" disabled="@(string.IsNullOrEmpty(this._bucketName))">Save</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<div class="modal fase" id="taskDetailsModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">@this._selectedTask?.Name</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <div class="form-floating">
+                    <textarea class="form-control" placeholder="Description" id="floatingTextarea2" style="height: 100px">@this._selectedTask?.Description</textarea>
+                    <label for="floatingTextarea2">Description</label>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Update</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
 @code {
-    private List<Bucket> Buckets { get; } = new List<Bucket>();
+    private List<Bucket> _buckets = new();
+    private Bucket? _selectedBucket; 
+    private TaskItem? _selectedTask;
+    private string _bucketName = string.Empty;
 
     protected override void OnInitialized()
     {
         base.OnInitialized();
+
+        this.AddInitialBuckets();
+    }
+
+    private void AddInitialBuckets()
+    {
+        this._buckets.Add(new Bucket
+        {
+            Id = 1,
+            Name = "In Progress"
+        });
+
+        this._buckets.Add(new Bucket
+        {
+            Id = 2,
+            Name = "Completed"
+        });
+
+        this._buckets.Add(new Bucket
+        {
+            Id = 3,
+            Name = "Testing"
+        });
     }
 
     private void AddNewBucket()
     {
-        this.Buckets.Add(new Bucket
-            {
-                Name = "New Bucket",
-                TodoItems = new List<TodoItem>
-                {
-                    new TodoItem
-                    {
-                        Name = "Make me today",
-                        Description = "This is some bla bla text to read. Since I don't know what to write, I am just wasting some time writing words instead of just copying some text from internet.",
-                        Status = TodoStatus.NotStarted
-                    }
-                }
-            });
+        this._buckets.Insert(0, new Bucket
+        {
+            Id = 4,
+            Name = this._bucketName,
+            AllowDelete = true
+        });
+
+        this._bucketName = string.Empty;
     }
 
     private void AddNewTask(Bucket bucket)
     {
-        bucket.TodoItems.Add(new TodoItem
+        bucket.TaskItems.Add(new TaskItem
         {
+            BucketId = 4,
             Name = "Make me today second time",
-            Description = "This time some shorter text.",
-            Status = TodoStatus.NotStarted
+            Description = "This time some shorter text. But I realized that I actually need a longer text. (sad face) so now I am typing again, because I am too lazy to copy some text.",
+            Status = Model.TaskItemStatus.NotStarted
         });
     }
 
-    private void ShowTaskDetails(TodoItem todoItem)
+    private void SetSelectedTask(TaskItem taskItem)
     {
-        
+        this._selectedTask = taskItem;
     }
 }
