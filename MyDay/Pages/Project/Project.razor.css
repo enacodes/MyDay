@@ -1,0 +1,39 @@
+﻿.dashboard-container {
+    padding: 1rem;
+}
+
+.project-container {
+    box-sizing: border-box;
+    width: 250px;
+    height: 150px;
+    background-color: var(--bs-gray-800);
+    border-radius: 1rem;
+    padding: 2px;
+}
+
+.new-project span {
+    display: none;
+}
+
+.new-project:hover span {
+    display: block;
+}
+
+.new-project:hover i {
+    display: none;
+}
+
+.project-short-description {
+    padding: 0;
+    border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
+
+.show-pointer {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .project-container {
+        width: 100%;
+    }
+}

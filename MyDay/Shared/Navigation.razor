@@ -8,6 +8,12 @@
                 <span>Home</span>
             </div>
         </li>
+        <li class="d-flex side-navigation-item" @onclick="@(() => this.Redirect("project"))">
+            <div class="side-navigation-item-details">
+                <i class="bi bi-diamond"></i>
+                <span>Project</span>
+            </div>
+        </li>
         <li class="d-flex side-navigation-item" @onclick="@(() => this.Redirect("todo"))">
             <div class="side-navigation-item-details">
                 <i class="bi bi-list-task"></i>

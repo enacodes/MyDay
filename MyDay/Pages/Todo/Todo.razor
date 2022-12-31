@@ -144,18 +144,21 @@ else
         this._buckets.Add(new Bucket
         {
             Id = 1,
+            ProjectId = 1,
             Name = "In Progress"
         });
 
         this._buckets.Add(new Bucket
         {
             Id = 2,
+            ProjectId = 1,
             Name = "Completed"
         });
 
         this._buckets.Add(new Bucket
         {
             Id = 3,
+            ProjectId = 1,
             Name = "Testing"
         });
     }
@@ -165,6 +168,7 @@ else
         this._buckets.Insert(0, new Bucket
         {
             Id = 4,
+            ProjectId = 1,
             Name = this._bucketName,
             AllowDelete = true
         });
