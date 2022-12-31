@@ -1,3 +1,43 @@
+/* /Pages/Project/Project.razor.rz.scp.css */
+.dashboard-container[b-52nkj9zb31] {
+    padding: 1rem;
+}
+
+.project-container[b-52nkj9zb31] {
+    box-sizing: border-box;
+    width: 250px;
+    height: 150px;
+    background-color: var(--bs-gray-800);
+    border-radius: 1rem;
+    padding: 2px;
+}
+
+.new-project span[b-52nkj9zb31] {
+    display: none;
+}
+
+.new-project:hover span[b-52nkj9zb31] {
+    display: block;
+}
+
+.new-project:hover i[b-52nkj9zb31] {
+    display: none;
+}
+
+.project-short-description[b-52nkj9zb31] {
+    padding: 0;
+    border-top: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color);
+}
+
+.show-pointer[b-52nkj9zb31] {
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .project-container[b-52nkj9zb31] {
+        width: 100%;
+    }
+}
 /* /Pages/Todo/Todo.razor.rz.scp.css */
 .toolbar[b-odokns6mxw] {
     background-color: var(--bs-gray-800);
@@ -69,6 +109,12 @@
 .content-area[b-rszg31j7s4] {
     grid-area: 1 / 2 / 2 / 6;
 }
+
+@media (max-width: 768px) {
+    .main-container[b-rszg31j7s4] {
+        grid-template-columns: 50px auto;
+    }
+}
 /* /Shared/Navigation.razor.rz.scp.css */
 .side-navigation-container[b-iy2ataps2w] {
     height: inherit;
@@ -90,4 +136,18 @@
 
 .side-navigation-item:hover[b-iy2ataps2w] {
     background-color: var(--bs-gray-800);
+}
+
+.tooltip[b-iy2ataps2w] {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .side-navigation-item-details span[b-iy2ataps2w] {
+        display: none;
+    }
+
+    .side-navigation-item-details:hover span[b-iy2ataps2w] {
+        display: none;
+    }
 }
