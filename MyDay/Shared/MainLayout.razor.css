@@ -16,3 +16,9 @@
 .content-area {
     grid-area: 1 / 2 / 2 / 6;
 }
+
+@media (max-width: 768px) {
+    .main-container {
+        grid-template-columns: 50px auto;
+    }
+}

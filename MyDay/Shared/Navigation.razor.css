@@ -19,3 +19,17 @@
 .side-navigation-item:hover {
     background-color: var(--bs-gray-800);
 }
+
+.tooltip {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .side-navigation-item-details span {
+        display: none;
+    }
+
+    .side-navigation-item-details:hover span {
+        display: none;
+    }
+}
