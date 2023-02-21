@@ -1,0 +1,48 @@
+﻿@page "/todo-list"
+
+@using Microsoft.EntityFrameworkCore;
+@using MyDay.Data;
+@using MyDay.Pages.TodoList.Model;
+
+<div class="todo-list-container">
+
+    @foreach (var todoItem in this._todoListItems)
+    {
+        <div>
+            @todoItem.Title
+        </div>
+    }
+
+    <div class="add-todo-container sticky-bottom">
+        <textarea @bind="@_title"></textarea>
+        <button @onclick="@(async () => await AddTodoAsync())">Add</button>
+    </div>
+</div>
+
+@code {
+    private string _title;
+
+    private List<TodoListItem> _todoListItems = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using MyDayContext context = new MyDayContext();
+
+        this._todoListItems = await context.TodoListItems.ToListAsync();
+    }
+
+    private async Task AddTodoAsync()
+    {
+        using MyDayContext context = new MyDayContext();
+
+        var todoItem = new TodoListItem
+            {
+                Title = this._title
+            };
+
+        context.TodoListItems.Add(todoItem);
+        this._todoListItems.Add(todoItem);
+
+        await context.SaveChangesAsync();
+    }
+}
