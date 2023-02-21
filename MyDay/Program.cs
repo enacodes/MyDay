@@ -1,7 +1,6 @@
 using BlazorDB;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.EntityFrameworkCore;
 using MyDay;
 using MyDay.Data;
 
