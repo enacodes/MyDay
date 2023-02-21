@@ -90,6 +90,13 @@
 .show-pointer[b-odokns6mxw] {
     cursor: pointer;
 }
+/* /Pages/TodoList/TodoList.razor.rz.scp.css */
+
+.todo-list-container[b-e8khgv3nw2] {
+    width: 100%;
+    height: 100%;
+    padding: 2rem;
+}
 /* /Shared/MainLayout.razor.rz.scp.css */
 .main-container[b-rszg31j7s4] {
     display: grid;
