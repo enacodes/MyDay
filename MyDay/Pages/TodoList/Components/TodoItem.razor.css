@@ -1,0 +1,20 @@
+﻿.todo-list-item {
+    background-color: #2a2f33;
+    height: 2.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.empty-circle {
+    border: 2px solid #8d4e84;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+}
+
+.circle:hover, .full-circle {
+    background-color: #8d4e84;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+}

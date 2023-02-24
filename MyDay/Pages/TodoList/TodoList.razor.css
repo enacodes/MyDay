@@ -1,6 +1,34 @@
-﻿
-.todo-list-container {
+﻿.todo-list-container {
     width: 100%;
     height: 100%;
     padding: 2rem;
+}
+
+.add-todo-container {
+    background-color: #28282b;
+    border-radius: 4px;
+}
+
+.add-todo-icon {
+    color: #8557cc;
+}
+
+::deep input {
+    border: none;
+    appearance: none;
+    padding: .7rem;
+    outline: none;
+    background-color: #28282b;
+    color: #979797;
+}
+
+::deep input::placeholder {
+    color: #8557cc;
+}
+
+.completed-todo-list-items-section {
+    background-color: #8d4e84;
+    padding: .3rem;
+    border-radius: 4px;
+    width: fit-content;
 }

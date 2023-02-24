@@ -2,27 +2,47 @@
 
 @using Microsoft.EntityFrameworkCore;
 @using MyDay.Data;
+@using MyDay.Pages.TodoList.Components
 @using MyDay.Pages.TodoList.Model;
 
 <div class="todo-list-container">
 
-    @foreach (var todoItem in this._todoListItems)
-    {
-        <div>
-            @todoItem.Title
+    <div class="add-todo-container d-flex sticky-top position-relative justify-content-between mb-2">
+        <div class="add-todo-icon position-absolute top-50 start-0 translate-middle-y ms-2">
+            <i class="bi bi-plus add-todo-icon"></i>
         </div>
-    }
-
-    <div class="add-todo-container sticky-bottom">
-        <textarea @bind="@_title"></textarea>
-        <button @onclick="@(async () => await AddTodoAsync())">Add</button>
+        <EditForm class="add-todo-input ms-4 w-100" Model="@this" OnValidSubmit="@AddTodoAsync">
+            <InputText class="w-100" placeholder="Add new task" @bind-Value="@Title" />
+        </EditForm>
     </div>
+
+    <div class="todo-list-items-container">
+        @foreach (var todoItem in this._todoListItems.Where(f => f.MarkedAsCompleted is false))
+        {
+            <TodoItem Item="todoItem" ObjectChanged="@(value => { todoItem.MarkedAsCompleted = value.MarkedAsCompleted; _ = this.ChangeTodoState(todoItem); })" />
+        }
+
+        @if (this._todoListItems.Any(f => f.MarkedAsCompleted))
+        {
+            var completeCount = this._todoListItems.Count(f => f.MarkedAsCompleted);
+
+            <div class="completed-todo-list-items-section mt-2 mb-2">
+                Completed @completeCount
+            </div>
+
+            @foreach (var todoItem in this._todoListItems.Where(f => f.MarkedAsCompleted))
+            {
+                <TodoItem Item="todoItem" ObjectChanged="@(value => { todoItem.MarkedAsCompleted = value.MarkedAsCompleted; _ = this.ChangeTodoState(todoItem); })" />
+            }
+        }
+    </div>
+
 </div>
 
 @code {
-    private string _title;
-
     private List<TodoListItem> _todoListItems = new();
+
+    public string? Title { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -33,16 +53,32 @@
 
     private async Task AddTodoAsync()
     {
+        if (string.IsNullOrEmpty(this.Title))
+            return;
+
         using MyDayContext context = new MyDayContext();
 
         var todoItem = new TodoListItem
             {
-                Title = this._title
+                Title = this.Title
             };
 
         context.TodoListItems.Add(todoItem);
         this._todoListItems.Add(todoItem);
 
+        this.Title = string.Empty;
+
+        await context.SaveChangesAsync();
+    }
+
+    private async Task ChangeTodoState(TodoListItem item)
+    {
+        if (item == null)
+            return;
+
+        using MyDayContext context = new MyDayContext();
+
+        context.Update(item);
         await context.SaveChangesAsync();
     }
 }

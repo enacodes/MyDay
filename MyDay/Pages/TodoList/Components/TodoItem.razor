@@ -1,0 +1,40 @@
+﻿@using MyDay.Data;
+@using MyDay.Pages.TodoList.Model;
+
+
+<div class="todo-list-item d-flex p-2 position-relative justify-content-between mt-1">
+    <div class="position-absolute top-50 start-0 translate-middle-y ms-2" @onclick="@(() => this.ObjectChanged.InvokeAsync(this.ChangeTodoState()))">
+        @if (Item.MarkedAsCompleted)
+        {
+            <div class="circle full-circle"></div>
+        }
+        else
+        {
+            <div class="circle empty-circle"></div>
+        }
+    </div>
+    <div class="todo-list-item-title ms-4">
+        @if (Item.MarkedAsCompleted)
+        {
+            <span class="text-decoration-line-through fw-lighter">@Item.Title</span>
+        }
+        else
+        {
+            <span class="fw-semibold">@Item.Title</span>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public TodoListItem Item { get; set; }
+    [Parameter]
+    public EventCallback<TodoListItem> ObjectChanged { get; set; }
+
+    private TodoListItem ChangeTodoState()
+    {
+        this.Item.MarkedAsCompleted = !this.Item.MarkedAsCompleted;
+
+        return this.Item;
+    }
+}
