@@ -90,12 +90,61 @@
 .show-pointer[b-odokns6mxw] {
     cursor: pointer;
 }
-/* /Pages/TodoList/TodoList.razor.rz.scp.css */
+/* /Pages/TodoList/Components/TodoItem.razor.rz.scp.css */
+.todo-list-item[b-zb1u84s00p] {
+    background-color: #2a2f33;
+    height: 2.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
 
+.empty-circle[b-zb1u84s00p] {
+    border: 2px solid #8d4e84;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+}
+
+.circle:hover[b-zb1u84s00p], .full-circle[b-zb1u84s00p] {
+    background-color: #8d4e84;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+}
+/* /Pages/TodoList/TodoList.razor.rz.scp.css */
 .todo-list-container[b-e8khgv3nw2] {
     width: 100%;
     height: 100%;
     padding: 2rem;
+}
+
+.add-todo-container[b-e8khgv3nw2] {
+    background-color: #28282b;
+    border-radius: 4px;
+}
+
+.add-todo-icon[b-e8khgv3nw2] {
+    color: #8557cc;
+}
+
+[b-e8khgv3nw2] input {
+    border: none;
+    appearance: none;
+    padding: .7rem;
+    outline: none;
+    background-color: #28282b;
+    color: #979797;
+}
+
+[b-e8khgv3nw2] input::placeholder {
+    color: #8557cc;
+}
+
+.completed-todo-list-items-section[b-e8khgv3nw2] {
+    background-color: #8d4e84;
+    padding: .3rem;
+    border-radius: 4px;
+    width: fit-content;
 }
 /* /Shared/MainLayout.razor.rz.scp.css */
 .main-container[b-rszg31j7s4] {
@@ -115,6 +164,7 @@
 
 .content-area[b-rszg31j7s4] {
     grid-area: 1 / 2 / 2 / 6;
+    height: 100vh;
 }
 
 @media (max-width: 768px) {
